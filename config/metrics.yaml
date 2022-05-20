@@ -1,0 +1,22 @@
+name: Yaml Component
+description: Yaml Component Test
+inputs:
+- {name: input_dataset, type: Dataset, description: 'Dataset'}
+- {name: param1, type: String, description: 'String'}
+
+outputs:
+- {name: model, type: Model, description: 'Model'}
+- {name: metrics, type: Metrics, description: 'Metrics'}
+
+implementation:
+  container:
+    image: The_image_built_by_the_Dockerfile_and_uploaded_to_the_container_registry
+    command:
+      - sh
+      - -c
+      - |+
+        python3 /POC/src/metrics.py $0 $@
+    args: [
+      --executor-input,
+      {executorInput: null}
+    ]

@@ -1,0 +1,27 @@
+name: Concat strings
+description: Concat 2 strings and save the result
+
+inputs:
+- {name: parameter_1, type: String, description: 'First string'}
+- {name: parameter_2, type: String, default: '100', description: 'Second string'}
+
+outputs:
+- {name: output_1, type: Dataset, description: 'output_1 data'}
+
+implementation:
+  container:
+    image: The_image_built_by_the_Dockerfile_and_uploaded_to_the_container_registry
+    # command is a list of strings (command-line arguments).
+    # The YAML language has two syntaxes for lists and you can use either of them.
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3,
+      # Path of the program inside the container
+      /POC/src/concat.py,
+      --param1,
+      {inputValue: parameter_1},
+      --param2,
+      {inputValue: parameter_2},
+      --output_path,
+      {outputPath: output_1},
+    ]

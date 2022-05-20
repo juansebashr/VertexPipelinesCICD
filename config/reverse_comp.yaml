@@ -1,0 +1,23 @@
+name: Reverse
+description: Reverse a string from a file
+inputs:
+- {name: input_1, type: Dataset, description: 'Input data'}
+
+outputs:
+- {name: output_1, type: Dataset, description: 'Output data'}
+
+implementation:
+  container:
+    image: The_image_built_by_the_Dockerfile_and_uploaded_to_the_container_registry
+    # command is a list of strings (command-line arguments).
+    # The YAML language has two syntaxes for lists and you can use either of them.
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3,
+      # Path of the program inside the container
+      /POC/src/reverse.py,
+      --input_path,
+      {inputPath: input_1},
+      --output_path,
+      {outputPath: output_1},
+    ]
